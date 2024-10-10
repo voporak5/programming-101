@@ -10,11 +10,14 @@ namespace WhoWantsToBeAMillionaire
     {
         public string question     = String.Empty;
         public string answer       = String.Empty;
-        public string[] decoys     = new string[0];
+        public List<string> decoys = new List<string>();
+        public List<string> decoysUsed = new List<string>();
         public int answerIndex;
 
         public void Show()
         {
+            //decoysUsed = new bool[decoys.Count];
+
             Console.WriteLine(question);
 
             //Option A
@@ -23,9 +26,27 @@ namespace WhoWantsToBeAMillionaire
             Console.WriteLine("3) " + answers[2]);
             Console.WriteLine("4) " + answers[3]);*/
 
-            for (int i = 0; i < answers.Length; i++)
+            for (int i = 0; i < 4; i++)
             {
-                Console.WriteLine($"{i+1}) {answers[i]}");
+                if (i == answerIndex)
+                {
+                    Console.WriteLine($"{i + 1}) {answer}");
+                }
+                else
+                {
+                    //Console.WriteLine($"{i + 1}) {decoys[Random.Shared.Next(decoys.Length)]}");
+                    int decoyIndex = Random.Shared.Next(decoys.Count);
+
+                    //while(decoysUsed[decoyIndex])
+                    //{
+                    //decoyIndex = Random.Shared.Next(decoys.Length);
+                    //}
+
+                    decoysUsed.Add(decoys[decoyIndex]);
+                    decoys.RemoveAt(decoyIndex);
+                    //decoysUsed[decoyIndex] = true;
+                    Console.WriteLine($"{i + 1}) {decoys[decoyIndex]}");
+                }
             }
 
             Console.WriteLine("\nEnter the number of the answer you want to choose");
